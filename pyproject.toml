@@ -2,7 +2,6 @@
 name = "leetpath"
 version = "0.1.0"
 description = "AI-powered NeetCode 150 progress tracker with pattern-based weakness detection and daily problem recommendations"
-readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.115.0",

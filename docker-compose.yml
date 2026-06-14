@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: leetpath:dev
+    container_name: leetpath-app
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount source code for hot-reload during development
+      - ./src:/app/src
+    environment:
+      - ENVIRONMENT=development
+    command: >
+      uvicorn src.leetpath.main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+    restart: unless-stopped
