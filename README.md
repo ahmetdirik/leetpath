@@ -1,5 +1,6 @@
 # LeetPath
 
+![CI](https://github.com/ahmetdirik/leetpath/actions/workflows/ci.yml/badge.svg)
 AI-powered NeetCode 150 progress tracker with pattern-based weakness detection and personalized daily problem recommendations.
 
 > 🚧 In active development. Coming soon.
