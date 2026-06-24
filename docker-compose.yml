@@ -8,13 +8,37 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # Mount source code for hot-reload during development
       - ./src:/app/src
     environment:
       - ENVIRONMENT=development
+      - DATABASE_URL=postgresql+asyncpg://leetpath:leetpath_dev_password@db:5432/leetpath
     command: >
       uvicorn src.leetpath.main:app
       --host 0.0.0.0
       --port 8000
       --reload
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    container_name: leetpath-db
+    environment:
+      - POSTGRES_USER=leetpath
+      - POSTGRES_PASSWORD=leetpath_dev_password
+      - POSTGRES_DB=leetpath
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U leetpath -d leetpath"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
